@@ -20,94 +20,94 @@ sap.ui.define(
          * @override
          */
         init: function () {
+          console.log("Passou no Component");
           // call the base component's init function
-          UIComponent.prototype.init.apply(this, arguments);
-          window.oModelWf = this.getModel("wf");
+          UIComponent?.prototype?.init?.apply?.(this, arguments);
+          window.oModelWf = this?.getModel?.("wf");
 
           // enable routing
-          this.getRouter().initialize();
+          this?.getRouter?.()?.initialize?.();
 
           // set the device model
-          this.setModel(models.createDeviceModel(), "device");
+          this?.setModel(models?.createDeviceModel?.(), "device");
 
-          this.setTaskModels();
+          this?.setTaskModels?.();
 
-          this.getInboxAPI().addAction(
+          this?.getInboxAPI?.()?.addAction?.(
             {
               action: "APPROVE",
               label: "Aprovar",
               type: "accept", // (Optional property) Define for positive appearance
             },
             function () {
-              this.completeTask(true);
+              this?.completeTask?.(true);
             },
             this
           );
 
-          this.getInboxAPI().addAction(
+          this?.getInboxAPI?.()?.addAction?.(
             {
               action: "REJECT",
               label: "Rejeitar",
               type: "reject", // (Optional property) Define for negative appearance
             },
             function () {
-              this.completeTask(false);
+              this?.completeTask?.(false);
             },
             this
           );
 
           // set the dataSource model
-          this.setModel(new sap.ui.model.json.JSONModel({}), "dataSource");
+          this?.setModel(new sap.ui.model.json.JSONModel({}), "dataSource");
 
           // set application model
           var oApplicationModel = new sap.ui.model.json.JSONModel({});
-          this.setModel(oApplicationModel, "applicationModel");
+          this?.setModel?.(oApplicationModel, "applicationModel");
 
-          this.getRouter().initialize();
-
-          
+          this?.getRouter?.()?.initialize?.();
         },
 
         setTaskModels: function () {
           // set the task model
-          var startupParameters = this.getComponentData().startupParameters;
-          window.taskModel = startupParameters.taskModel.oData;
-          this.setModel(startupParameters.taskModel, "task");
+          var startupParameters = this?.getComponentData?.()?.startupParameters;
+          window.taskModel = startupParameters?.taskModel?.oData;
+          this?.setModel(startupParameters?.taskModel, "task");
 
           // set the task context model
           var taskContextModel = new sap.ui.model.json.JSONModel(
-            this._getTaskInstancesBaseURL() + "/context"
+            this?._getTaskInstancesBaseURL?.() + "/context"
           );
 
-          this.setModel(taskContextModel, "context");
+          this?.setModel(taskContextModel, "context");
         },
 
         _getTaskInstancesBaseURL: function () {
           return (
-            this._getWorkflowRuntimeBaseURL() +
+            this?._getWorkflowRuntimeBaseURL?.() +
             "/task-instances/" +
-            this.getTaskInstanceID()
+            this?.getTaskInstanceID?.()
           );
         },
 
         _getWorkflowRuntimeBaseURL: function () {
-          var appId = this.getManifestEntry("/sap.app/id");
-          var appPath = appId.replaceAll(".", "/");
+          var appId = this?.getManifestEntry?.("/sap.app/id");
+          var appPath = appId?.replaceAll?.(".", "/");
           var appModulePath = jQuery.sap.getModulePath(appPath);
 
           return appModulePath + "/bpmworkflowruntime/v1";
         },
 
         getTaskInstanceID: function () {
-          return this.getModel("task").getData().InstanceID;
+          return this?.getModel?.("task")?.getData?.()?.InstanceID;
         },
 
         getInboxAPI: function () {
-          var startupParameters = this.getComponentData().startupParameters;
-          return startupParameters.inboxAPI;
+          var startupParameters = this?.getComponentData?.()?.startupParameters;
+          return startupParameters?.inboxAPI;
         },
 
         completeTask: function (approvalStatus) {
+          console.log(this.getModel("oCatalogModel")?.getData());
           this.getModel("context").setProperty("/approved", approvalStatus);
           this._patchTaskInstance();
           this._refreshTaskList();

@@ -1,214 +1,207 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:uxap="sap.uxap" xmlns="sap.m" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" controllerName="com.br.aegea.wfaprovacao.workflowfornecedoresui.controller.ListFornecedorWf">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:uxap="sap.uxap" xmlns="sap.m"
+    xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core"
+    controllerName="com.br.aegea.wfaprovacao.workflowfornecedoresui.controller.ListFornecedorWf">
     <App id="app">
         <pages>
             <Page showHeader="false" showFooter="false">
                 <content>
-                    <uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false" class="sapUiSizeCompact">
-        <uxap:headerTitle>
-            <uxap:ObjectPageHeader objectTitle="Lançar Medições" objectSubtitle="" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true" >
-                <uxap:navigationBar>
-                    <Bar>
-                        <contentLeft>
-                           
-                        </contentLeft>
-                        <contentMiddle>
-                            <Title text="Lançar Medições"/>
-                        </contentMiddle>
-                        <contentRight/>
-                    </Bar>
-                </uxap:navigationBar>
-                <uxap:actions/>
-                <uxap:breadCrumbsLinks/>
-            </uxap:ObjectPageHeader>
-        </uxap:headerTitle>
-        <uxap:headerContent>
-            <VBox>
-                <items>
-                    <Title text="Contrato: 456789321"/>
-                </items>
-            </VBox>
-        </uxap:headerContent>
-        <uxap:sections>
-            <uxap:ObjectPageSection title="">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="">
-                        <uxap:blocks>
-                            <layout:Grid defaultSpan="XL12 L12 M12 S12">
-                                <layout:content>
-                                    <form:Form>
-                                        <form:layout>
-                                            <form:ResponsiveGridLayout labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="4" columnsL="3" columnsM="2" singleContainerFullSize="false"/>
-                                        </form:layout>
-                                        <form:formContainers>
-                                            <form:FormContainer title="">
-                                                <form:formElements>
-                                                    <form:FormElement>
-                                                        <form:label>
-                                                            <Label text="Periodo de Medição" required="false"/>
-                                                        </form:label>
-                                                        <form:fields>
-                                                            <Text text="01/01/2023 à 02/01/2023"/>
-                                                        </form:fields>
-                                                    </form:FormElement>
-                                                </form:formElements>
-                                            </form:FormContainer>
-                                        </form:formContainers>
-                                    </form:Form>
-                                </layout:content>
-                            </layout:Grid>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-            <uxap:ObjectPageSection title="">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="">
-                        <uxap:blocks>
-                            <Table id="idEditMedicao" items="{ path:'ListModel>/' }" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-                                <headerToolbar>
-                                    <OverflowToolbar design="Transparent">
-                                        <content>
-                                            <ToolbarSpacer/>
-                                            <Button icon="sap-icon://action-settings" type="Transparent">
-                                                <layoutData>
-                                                    <OverflowToolbarLayoutData moveToOverflow="true"/>
-                                                </layoutData>
-                                            </Button>
-                                        </content>
-                                    </OverflowToolbar>
-                                </headerToolbar>
-                                <columns>
-                                <Column width="auto" minScreenWidth="Tablet" demandPopin="true">
-                                        <header>
-                                            <Text text="Status" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Tablet" demandPopin="true">
-                                        <header>
-                                            <Text text="Item" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Projeto" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="PEP" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Descrição Item" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Mês" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Valor Mês" width="auto"/>
-                                        </header>
-                                    </Column>
-                                     <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Mês Confirmação" width="auto"/>
-                                        </header>
-                                    </Column>
-                                     <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Valor Mês Confirmação" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Acum. Ant" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Qtd Total" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Acum. Anterior - Valor" width="auto"/>
-                                        </header>
-                                    </Column>
-                                   <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Previsto" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Acum. Total Mês" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Acum. Total" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Unid" width="auto"/>
-                                        </header>
-                                    </Column>
-                                    <Column width="auto" minScreenWidth="Phone">
-                                        <header>
-                                            <Text text="Valor Unit." width="auto"/>
-                                        </header>
-                                    </Column>
-                                </columns>
+                    <uxap:ObjectPageLayout class="sapUiSizeCompact">
+                        <uxap:headerTitle>
+                            <uxap:ObjectPageHeader objectTitle="Lançar Medições" objectSubtitle=""
+                                showPlaceholder="true">
+
+
+                            </uxap:ObjectPageHeader>
+                        </uxap:headerTitle>
+                        <uxap:headerContent>
+                            <VBox>
                                 <items>
-                                    <ColumnListItem type="Active">
-                                        <cells>
-                                            <ObjectStatus text=""/>
-                                            <ObjectStatus text=""/>
-                                            <ObjectStatus text=""/>
-                                            <ObjectStatus text=""/>
-                                            <ObjectStatus text=""/>
-                                            <ObjectStatus text=""/>
-                                            <ObjectStatus text=""/>
-                                            <ObjectStatus text=""/>
-                                            <ObjectStatus text="" />
-                                            <ObjectStatus text="" />
-                                            <ObjectStatus text="" />
-                                            <ObjectStatus text="" />
-                                            <ObjectStatus text="" />
-                                            <ObjectStatus text="" />
-                                            <ObjectStatus text="" />
-                                            <ObjectStatus text="" />
-                                            <ObjectStatus text="" />
-                                        </cells>
-                                    </ColumnListItem>
+                                    <Title text="Contrato: {oViewModel>/sContrato}" />
+                                    <Title text="N° Medição: {oViewModel>/sNumeroMedicao}" />
+                                    <Title text="Perído Medição: {oViewModel>/sPeriod}" />
                                 </items>
-                            </Table>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-            <uxap:ObjectPageSection title="">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="">
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-        </uxap:sections>
-        <uxap:footer>
-            <OverflowToolbar design="auto">
-                <content>
-                    <ToolbarSpacer/>
-                    <Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                    <Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                </content>
-            </OverflowToolbar>
-        </uxap:footer>
-    </uxap:ObjectPageLayout>
+                            </VBox>
+                        </uxap:headerContent>
+                        <uxap:sections>
+
+                            <uxap:ObjectPageSection>
+                                <uxap:subSections>
+                                    <uxap:ObjectPageSubSection>
+                                        <uxap:blocks>
+                                            <ScrollContainer width="100%"
+                                            >
+                                                <Table id="idEditMedicao"
+                                                    width="120rem"
+                                                    items="{ path:'ListModel>/' }"
+                                                >
+
+                                                    <columns>
+                                                        <Column
+                                                            width="5%">
+                                                            <header>
+                                                                <Text text="Status" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column
+                                                            width="5%">
+                                                            <header>
+                                                                <Text text="Item" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column width="7%">
+                                                            <header>
+                                                                <Text text="Projeto" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="PEP" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column width="10%">
+                                                            <header>
+                                                                <Text text="Descrição Item"
+                                                                />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="Mês" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="Valor Mês" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column width="7%">
+                                                            <header>
+                                                                <Text text="Mês Confirmação"
+                                                                />
+                                                            </header>
+                                                        </Column>
+                                                        <Column width="7%">
+                                                            <header>
+                                                                <Text text="Valor Mês Confirmação"
+                                                                />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="Acum. Anterior Qtd" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="Qtd Total" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column width="10%">
+                                                            <header>
+                                                                <Text text="Acum. Anterior - Valor"
+                                                                />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="Previsto" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="Acum. Total Mês"
+                                                                />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="Acum. Total"
+                                                                />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="Unid" />
+                                                            </header>
+                                                        </Column>
+                                                        <Column>
+                                                            <header>
+                                                                <Text text="Valor Unit."
+                                                                />
+                                                            </header>
+                                                        </Column>
+                                                    </columns>
+                                                    <items>
+                                                        <ColumnListItem type="Active">
+                                                            <cells>
+                                                                <Select id="_IDGenSelect1"
+                                                                    forceSelection="false"
+                                                                    selectedKey="{ListModel>StatusSelected}"
+                                                                    items="{path: 'oViewModel>/StatusOptions'}"
+                                                                    change=".handleChangeStatus">
+                                                                    <core:Item id="_IDGenItem1"
+                                                                        key="{oViewModel>Name}"
+                                                                        text="{oViewModel>Name}" />
+                                                                </Select>
+                                                                <ObjectStatus
+                                                                    text="{ListModel>Ebelp}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>Txz01}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>ObjetoCusto}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>Ktext1}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>QtdMedir}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>ValorMes}" />
+                                                                <Input
+                                                                    text="{ListModel>MesConfirmacao}"
+                                                                    editable="{= ${ListModel>StatusSelected} === 'NOK'}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>ValorMesConfirmacao}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>QuantidadeMesAnterior}" />
+                                                                <ObjectStatus text="" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>ValorMesAnterior}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>ValorTotalPrevisto}" />
+                                                                <ObjectStatus text="" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>QuantidadeMedida}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>Meins}" />
+                                                                <ObjectStatus
+                                                                    text="{ListModel>ValorUnitario}" />
+                                                            </cells>
+                                                        </ColumnListItem>
+                                                    </items>
+                                                </Table>
+                                            </ScrollContainer>
+                                        </uxap:blocks>
+                                    </uxap:ObjectPageSubSection>
+                                </uxap:subSections>
+                            </uxap:ObjectPageSection>
+                            <uxap:ObjectPageSection title="">
+                                <uxap:subSections>
+                                    <uxap:ObjectPageSubSection title="">
+                                    </uxap:ObjectPageSubSection>
+                                </uxap:subSections>
+                            </uxap:ObjectPageSection>
+                        </uxap:sections>
+                        <uxap:footer>
+                            <OverflowToolbar design="auto">
+                                <content>
+                                    <ToolbarSpacer />
+                                    <Button text="Save" type="Emphasized"
+                                        iconDensityAware="false" />
+                                    <Button text="Cancel"
+                                        iconDensityAware="false" />
+                                </content>
+                            </OverflowToolbar>
+                        </uxap:footer>
+                    </uxap:ObjectPageLayout>
                 </content>
             </Page>
         </pages>
