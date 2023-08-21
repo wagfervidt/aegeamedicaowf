@@ -56,7 +56,7 @@
 			"isHiddenInLogForParticipant": false,
 			"supportsForward": false,
 			"userInterface": "sapui5://WorkflowRouter.combraegeawfaprovacaoworkflowfornecedoresui/com.br.aegea.wfaprovacao.workflowfornecedoresui",
-			"recipientUsers": "wagner.fernandes@seidor.com; marcos.domingos@seidor.com",
+			"recipientUsers": "marcos.domingos@seidor.com",
 			"customAttributes": [{
 				"id": "Contrato",
 				"label": "Contrato",
