@@ -7,6 +7,7 @@ sap.ui.define(["sap/ui/base/Object"], function (Object) {
     {
       constructor: function () {
         this.oCatalogModel = null;
+        this.oWfModel = null;
       },
 
       setoCatalogModel: function (model) {
@@ -15,6 +16,14 @@ sap.ui.define(["sap/ui/base/Object"], function (Object) {
 
       getoCatalogModel: function () {
         return this.oCatalogModel;
+      },
+
+      setoWfModel: function (model) {
+        this.oWfModel = model;
+      },
+
+      getoWfModel: function () {
+        return this.oWfModel;
       },
     }
   );

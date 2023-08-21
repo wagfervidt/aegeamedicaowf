@@ -20,7 +20,7 @@ sap.ui.define(
          * @override
          */
         init: function () {
-          console.log("Passou no Component");
+          console.log("Passou no Component31");
           // call the base component's init function
           UIComponent?.prototype?.init?.apply?.(this, arguments);
           window.oModelWf = this?.getModel?.("wf");
@@ -31,125 +31,65 @@ sap.ui.define(
           // set the device model
           this?.setModel(models?.createDeviceModel?.(), "device");
 
-          this?.setTaskModels?.();
+          if (!this.getComponentData()) return;
 
-          this?.getInboxAPI?.()?.addAction?.(
-            {
-              action: "APPROVE",
-              label: "Aprovar",
-              type: "accept", // (Optional property) Define for positive appearance
-            },
-            function () {
-              this?.completeTask?.(true);
-            },
-            this
+          // 1. Get the Task Properties
+          var startupParameters = this.getComponentData().startupParameters;
+          var taskModel = startupParameters.taskModel;
+          var taskData = taskModel.getData();
+          var taskId = taskData.InstanceID;
+
+          // 2. Read the Task Data
+          var that = this;
+          var contextModel = new sap.ui.model.json.JSONModel(
+            "/WorkflowRouter.combraegeawfaprovacaoworkflowfornecedoresui/bpmworkflowruntime/v1/task-instances/" +
+              taskId +
+              "/context"
           );
+          var contextData = contextModel.getData();
 
-          this?.getInboxAPI?.()?.addAction?.(
-            {
-              action: "REJECT",
-              label: "Rejeitar",
-              type: "reject", // (Optional property) Define for negative appearance
-            },
-            function () {
-              this?.completeTask?.(false);
-            },
-            this
-          );
+          // 3. Update UI Context Model with Task Properties Data
+          contextModel.attachRequestCompleted(function () {
+            contextData = contextModel.getData();
 
-          // set the dataSource model
-          this?.setModel(new sap.ui.model.json.JSONModel({}), "dataSource");
+            var processContext = {};
+            processContext.context = contextData;
+            processContext.context.task = {};
+            processContext.context.task.Title = taskData.TaskTitle;
+            processContext.context.task.Priority = taskData.Priority;
+            processContext.context.task.Status = taskData.Status;
+            processContext.context.task.CreatedByName = taskData.CreatedByName;
+            processContext.context.task.TaskDefinitionName =
+              taskData.TaskDefinitionName;
+            processContext.context.task.TaskId = taskId;
 
-          // set application model
-          var oApplicationModel = new sap.ui.model.json.JSONModel({});
-          this?.setModel?.(oApplicationModel, "applicationModel");
+            if (taskData.Priority === "HIGH") {
+              processContext.context.task.PriorityState = "Warning";
+            } else if (taskData.Priority === "VERY HIGH") {
+              processContext.context.task.PriorityState = "Error";
+            } else {
+              processContext.context.task.PriorityState = "Success";
+            }
 
-          this?.getRouter?.()?.initialize?.();
-        },
+            processContext.context.task.CreatedOn =
+              taskData.CreatedOn.toLocaleDateString("pt-BR");
 
-        setTaskModels: function () {
-          // set the task model
-          var startupParameters = this?.getComponentData?.()?.startupParameters;
-          window.taskModel = startupParameters?.taskModel?.oData;
-          this?.setModel(startupParameters?.taskModel, "task");
+            // get task description and add it to the model
+            startupParameters.inboxAPI
+              .getDescription("NA", taskData.InstanceID)
+              .done(function (dataDescr) {
+                processContext.context.task.Description = dataDescr.Description;
+                contextModel.setProperty(
+                  "/task/Description",
+                  dataDescr.Description
+                );
+              })
+              .fail(function (errorText) {});
 
-          // set the task context model
-          var taskContextModel = new sap.ui.model.json.JSONModel(
-            this?._getTaskInstancesBaseURL?.() + "/context"
-          );
+            contextModel.setData(processContext.context);
 
-          this?.setModel(taskContextModel, "context");
-        },
-
-        _getTaskInstancesBaseURL: function () {
-          return (
-            this?._getWorkflowRuntimeBaseURL?.() +
-            "/task-instances/" +
-            this?.getTaskInstanceID?.()
-          );
-        },
-
-        _getWorkflowRuntimeBaseURL: function () {
-          var appId = this?.getManifestEntry?.("/sap.app/id");
-          var appPath = appId?.replaceAll?.(".", "/");
-          var appModulePath = jQuery.sap.getModulePath(appPath);
-
-          return appModulePath + "/bpmworkflowruntime/v1";
-        },
-
-        getTaskInstanceID: function () {
-          return this?.getModel?.("task")?.getData?.()?.InstanceID;
-        },
-
-        getInboxAPI: function () {
-          var startupParameters = this?.getComponentData?.()?.startupParameters;
-          return startupParameters?.inboxAPI;
-        },
-
-        completeTask: function (approvalStatus) {
-          console.log(this.getModel("oCatalogModel")?.getData());
-          this.getModel("context").setProperty("/approved", approvalStatus);
-          this._patchTaskInstance();
-          this._refreshTaskList();
-        },
-
-        _patchTaskInstance: function () {
-          var data = {
-            status: "COMPLETED",
-            context: this.getModel("context").getData(),
-          };
-
-          jQuery.ajax({
-            url: this._getTaskInstancesBaseURL(),
-            method: "PATCH",
-            contentType: "application/json",
-            async: false,
-            data: JSON.stringify(data),
-            headers: {
-              "X-CSRF-Token": this._fetchToken(),
-            },
+            that.setModel(contextModel);
           });
-        },
-
-        _fetchToken: function () {
-          var fetchedToken;
-
-          jQuery.ajax({
-            url: this._getWorkflowRuntimeBaseURL() + "/xsrf-token",
-            method: "GET",
-            async: false,
-            headers: {
-              "X-CSRF-Token": "Fetch",
-            },
-            success(result, xhr, data) {
-              fetchedToken = data.getResponseHeader("X-CSRF-Token");
-            },
-          });
-          return fetchedToken;
-        },
-
-        _refreshTaskList: function () {
-          this.getInboxAPI().updateTask("NA", this.getTaskInstanceID());
         },
       }
     );

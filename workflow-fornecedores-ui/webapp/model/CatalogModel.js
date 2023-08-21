@@ -15,7 +15,6 @@ sap.ui.define(
           const oGlobalModel = GlobalModel.getInstance();
           const oCatalogModel = oGlobalModel.getoCatalogModel();
 
-          console.log({ oGlobalModel });
           const sPath = "/Interactions_Header";
 
           var aFilter = [];
@@ -41,7 +40,6 @@ sap.ui.define(
             })
           );
 
-          console.log({ header: results });
           return results?.results;
         },
 
@@ -74,8 +72,7 @@ sap.ui.define(
             })
           );
 
-          console.log({ items: results });
-          return results?.results?.map((item) => ({
+          const formattedResults = results?.results?.map((item) => ({
             ...item,
             QuantidadeMedida: parseFloat(item.QuantidadeMedida || 0).toFixed(3),
             ValorMedido: parseFloat(item.ValorMedido || 0).toFixed(3),
@@ -88,6 +85,11 @@ sap.ui.define(
             ValorMesAnterior: parseFloat(item?.ValorMesAnterior || 0)?.toFixed(
               2
             ),
+            ValorMes: (
+              Number(item?.QtdMedir) * Number(item?.ValorUnitario)
+            ).toFixed(2),
+            ValorMesConfirmacao: 0,
+            MesConfirmacao: 0,
             QuantidadeMesAnterior: parseFloat(
               item?.QuantidadeMesAnterior || 0
             ).toFixed(3),
@@ -95,7 +97,10 @@ sap.ui.define(
               parseFloat(item?.QuantidadeMedida || 0) *
               parseFloat(item?.ValorUnitario || 0)
             )?.toFixed(2),
+            StatusSelected: null,
           }));
+
+          return formattedResults;
         },
       }
     );
