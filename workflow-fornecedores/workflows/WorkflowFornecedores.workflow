@@ -56,7 +56,7 @@
 			"isHiddenInLogForParticipant": false,
 			"supportsForward": false,
 			"userInterface": "sapui5://WorkflowRouter.combraegeawfaprovacaoworkflowfornecedoresui/com.br.aegea.wfaprovacao.workflowfornecedoresui",
-			"recipientUsers": "wagner.fernandes@seidor.com",
+			"recipientUsers": "wagner.fernandes@seidor.com; marcos.domingos@seidor.com",
 			"customAttributes": [{
 				"id": "Contrato",
 				"label": "Contrato",
@@ -99,6 +99,10 @@
 			"classDefinition": "com.sap.bpm.wfs.SampleContext",
 			"reference": "/sample-data/sample_data.json",
 			"id": "default-start-context"
+		},
+		"dede8bd4-79de-4c85-84c4-95f8ff33efec": {
+			"classDefinition": "com.sap.bpm.wfs.TerminateEventDefinition",
+			"id": "terminateeventdefinition2"
 		},
 		"df898b52-91e1-4778-baad-2ad9a261d30e": {
 			"classDefinition": "com.sap.bpm.wfs.ui.StartEventSymbol",
@@ -146,10 +150,6 @@
 			"endevent": 1,
 			"usertask": 1,
 			"exclusivegateway": 1
-		},
-		"dede8bd4-79de-4c85-84c4-95f8ff33efec": {
-			"classDefinition": "com.sap.bpm.wfs.TerminateEventDefinition",
-			"id": "terminateeventdefinition2"
 		}
 	}
 }
