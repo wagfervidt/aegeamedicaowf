@@ -17,6 +17,7 @@ modules:
       service-key:
         name: uaa_AegeaWfMedicao-key
   parameters:
+    enable-parallel-deployments: true
     content:
       subaccount:
         destinations:
@@ -30,7 +31,6 @@ modules:
           ServiceKeyName: uaa_AegeaWfMedicao-key
           sap.cloud.service: WorkflowRouter
         existing_destinations_policy: ignore
-    enable-parallel-deployments: true
   build-parameters:
     no-source: true
 - name: workflow-fornecedores
@@ -58,37 +58,9 @@ modules:
       - combraegeawfaprovacaoworkflowfornecedoresui.zip
       name: combraegeawfaprovacaoworkflowfornecedoresui
       target-path: resources/
-    - artifacts:
-      - combraegeawfaprovacaoworkflowgestoruiworkflowgestorui.zip
-      name: combraegeawfaprovacaoworkflowgestoruiworkflowgestorui
-      target-path: resources/
-    - artifacts:
-      - combraegeawfaprovacaoworkflowadminuiworkflowadministradorui.zip
-      name: combraegeawfaprovacaoworkflowadminuiworkflowadministradorui
-      target-path: resources/
 - name: combraegeawfaprovacaoworkflowfornecedoresui
   type: html5
   path: workflow-fornecedores-ui
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: combraegeawfaprovacaoworkflowgestoruiworkflowgestorui
-  type: html5
-  path: workflow-gestor-ui
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: combraegeawfaprovacaoworkflowadminuiworkflowadministradorui
-  type: html5
-  path: workflow-administrador-ui
   build-parameters:
     build-result: dist
     builder: custom
