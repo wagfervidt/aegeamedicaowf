@@ -138,7 +138,7 @@
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "ListFornecedorWf",
+          "viewId": "ListFornecedor",
           "viewName": "ListFornecedorWf"
         }
       }
