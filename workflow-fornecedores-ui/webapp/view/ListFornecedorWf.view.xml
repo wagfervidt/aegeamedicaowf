@@ -1,7 +1,7 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:uxap="sap.uxap" xmlns="sap.m"
     xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core"
     controllerName="com.br.aegea.wfaprovacao.workflowfornecedoresui.controller.ListFornecedorWf"
-    xmlns:f="sap.f">
+    xmlns:f="sap.f" xmlns:upload="sap.m.upload">
     <App id="app">
 
         <f:DynamicPage
@@ -11,7 +11,7 @@
             <f:title>
                 <f:DynamicPageTitle id="_IDGenDynamicPageTitle1">
                     <f:heading>
-                        <Title id="_IDGenTitle1" text="Lançar Medições" />
+                        <Title id="_IDGenTitle1" text="Aprovar Medições" />
                     </f:heading>
 
 
@@ -30,10 +30,69 @@
                                 text="Perído Medição: {oViewModel>/sPeriod}" />
                         </items>
                     </VBox>
+                    <IconTabBar id="iconTabBar1" selectedKey="financial"
+                        visible="{oViewModel>/showFinancialData}"
+                        backgroundDesign="Transparent" applyContentPadding="false"
+                        select="handleSelectKey">
+                        <items>
+                            <IconTabFilter text="Documentos">
+                                <upload:UploadSet
+                                    id="uploadSet"
+                                    instantUpload="false"
+                                    uploadEnabled="false"
+                                    afterItemAdded="onAfterItemAdded"
+                                    uploadCompleted="onUploadCompleted"
+                                    items="{
+								path: 'oViewModel>/documents',
+								parameters: {
+									$orderby: 'createdAt desc'
+								},
+								templateShareable: false}"
+                                >
+                                    <upload:toolbar>
+                                    </upload:toolbar>
+                                    <upload:items>
+                                        <upload:UploadSetItem
+                                            fileName="{oViewModel>fileName}"
+                                            mediaType="{oViewModel>mediaType}"
+                                            url="{oViewModel>url}"
+                                            enabledEdit="false"
+                                            visibleEdit="false"
+                                            openPressed="onOpenPressed"
+                                            enabledRemove="false"
+                                        >
+                                            <upload:attributes>
+                                                <ObjectAttribute
+                                                    title="Uploaded By"
+                                                    text="{oViewModel>createdBy}"
+                                                    active="false"
+                                                />
+                                                <ObjectAttribute
+                                                    title="Uploaded on"
+                                                    text="{oViewModel>createdAt}"
+                                                    active="false"
+                                                />
+                                                <ObjectAttribute
+                                                    title="File Size"
+                                                    text="{oViewModel>size}"
+                                                    active="true"
+                                                />
+                                            </upload:attributes>
+                                        </upload:UploadSetItem>
+                                    </upload:items>
+                                </upload:UploadSet>
+                            </IconTabFilter>
+
+
+                        </items>
+                    </IconTabBar>
                 </f:DynamicPageHeader>
             </f:header>
+
             <f:content>
-                <ScrollContainer id="_IDGenScrollContainer1" width="100%" class="sapUiLargeMarginTop"
+
+                <ScrollContainer id="_IDGenScrollContainer1" width="100%"
+                    class="sapUiLargeMarginTop"
                 >
                     <Table id="idEditMedicao"
                         width="120rem"
@@ -163,7 +222,8 @@
                                     <ObjectStatus id="_IDGenObjectStatus6"
                                         text="{ListModel>ValorMes}" />
                                     <Input id="_IDGenInput1"
-                                        text="{ListModel>MesConfirmacao}"
+                                        value="{ListModel>MesConfirmacao}"
+                                        type="Number"
                                         change="handleChangeMonthConfirmation"
                                         editable="{= ${ListModel>StatusSelected} === 'NOK'}" />
                                     <ObjectStatus id="_IDGenObjectStatus7"
@@ -188,6 +248,7 @@
 
                     </Table>
                 </ScrollContainer>
+
             </f:content>
 
             <f:footer>
@@ -199,5 +260,6 @@
             </f:footer>
 
         </f:DynamicPage>
+
     </App>
 </mvc:View>

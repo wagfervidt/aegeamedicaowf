@@ -102,6 +102,40 @@ sap.ui.define(
 
           return formattedResults;
         },
+
+        getDocuments: async function ({ sContrato, sNumeroMedicao }) {
+          const oGlobalModel = GlobalModel.getInstance();
+          const oCatalogModel = oGlobalModel.getoCatalogModel();
+
+          const sPath = "/Files";
+
+          var aFilter = [];
+
+          if (sContrato != "") {
+            aFilter.push(new Filter("Ebeln", FilterOperator.EQ, sContrato));
+            aFilter.push(
+              new Filter("NumeroMedicao", FilterOperator.EQ, sNumeroMedicao)
+            );
+          }
+
+          oCatalogModel?.setUseBatch(false);
+
+          oCatalogModel?.setUseBatch(false);
+
+          const results = await new Promise((res, rej) =>
+            oCatalogModel.read(sPath, {
+              filters: aFilter,
+              success: function (oData) {
+                res(oData);
+              },
+              error: function (oError) {
+                rej(oError);
+              },
+            })
+          );
+
+          return results?.results;
+        },
       }
     );
   }
